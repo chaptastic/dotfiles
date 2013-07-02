@@ -1,0 +1,17 @@
+[user]
+	name = Chap Lovejoy
+	email = chaplovejoy@gmail.com
+[mergetool]
+	keepBackup = true
+[rerere]
+	enabled = 1
+[color]
+	ui = 1
+[alias]
+	status = status -sb
+	undo = reset --soft HEAD^
+    unmaster = log HEAD ^$(git merge-base master HEAD) --no-merges
+[push]
+	default = upstream
+[merge]
+	conflictstyle = diff3

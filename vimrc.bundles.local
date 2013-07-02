@@ -1,0 +1,88 @@
+let g:override_spf13_bundles = 1
+
+" General
+"Bundle 'scrooloose/nerdtree'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'spf13/vim-colors'
+Bundle 'tpope/vim-surround'
+" Bundle 'AutoClose'
+Bundle 'kien/ctrlp.vim'
+Bundle 'vim-scripts/sessionman.vim'
+Bundle 'matchit.zip'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'godlygeek/csapprox'
+"Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'flazz/vim-colorschemes'
+"Bundle 'corntrace/bufexplorer'
+
+" General Programming
+" Pick one of the checksyntax, jslint, or syntastic
+Bundle 'scrooloose/syntastic'
+Bundle 'garbas/vim-snipmate'
+Bundle 'spf13/snipmate-snippets'
+" Source support_function.vim to support snipmate-snippets.
+if filereadable(expand("~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim"))
+    source ~/.vim/bundle/snipmate-snippets/snippets/support_functions.vim
+endif
+
+Bundle 'tpope/vim-fugitive'
+"Bundle 'scrooloose/nerdcommenter'
+Bundle 'godlygeek/tabular'
+if executable('ctags')
+    Bundle 'majutsushi/tagbar'
+endif
+" Bundle 'Shougo/neocomplcache'
+
+" PHP
+" Bundle 'spf13/PIV'
+
+" Python
+" Pick either python-mode or pyflakes & pydoc
+Bundle 'klen/python-mode'
+Bundle 'python.vim'
+Bundle 'python_match.vim'
+Bundle 'pythoncomplete'
+
+" Javascript
+Bundle 'leshill/vim-json'
+Bundle 'groenewege/vim-less'
+Bundle 'taxilian/vim-web-indent'
+Bundle 'kchmck/vim-coffee-script'
+
+" HTML
+Bundle 'amirh/HTML-AutoCloseTag'
+Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
+
+" Ruby
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-bundler'
+let g:rubycomplete_buffer_loading = 1
+"let g:rubycomplete_classes_in_global = 1
+"let g:rubycomplete_rails = 1
+
+" Scala
+Bundle 'derekwyatt/vim-scala'
+Bundle 'aemoncannon/ensime'
+"
+" Misc
+Bundle 'spf13/vim-markdown'
+Bundle 'spf13/vim-preview'
+Bundle 'tpope/vim-cucumber'
+Bundle 'Puppet-Syntax-Highlighting'
+
+Bundle 'eagletmt/ghcmod-vim'
+Bundle 'dag/vim2hs'
+Bundle 'ujihisa/neco-ghc'
+Bundle 'Shougo/vimproc'
+
+Bundle 'guns/vim-clojure-static'
+Bundle 'tpope/vim-fireplace'
+Bundle 'paredit.vim'
+
+Bundle 'sjbach/lusty'
+Bundle 'tomtom/tcomment_vim'
+
+" Color schemes
+Bundle 'mayansmoke'
+Bundle 'chriskempson/base16-vim'
