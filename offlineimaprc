@@ -1,0 +1,158 @@
+
+# NOTE: Settings generally support python interpolation. This means
+# values can contain python format strings which refer to other values
+# in the same section, or values in a special DEFAULT section. This
+# allows you for example to use common settings for multiple accounts:
+#
+# [Repository Gmail1]
+# trashfolder: %(gmailtrashfolder)s
+#
+# [Repository Gmail2]
+# trashfolder: %(gmailtrashfolder)s
+#
+# [DEFAULT]
+# gmailtrashfolder = [Google Mail]/Papierkorb
+#
+# would set the trashfolder setting for your German gmail accounts.
+
+# NOTE2: This implies that any '%' needs to be encoded as '%%'
+
+##################################################
+# General definitions
+##################################################
+
+[general]
+
+metadata = ~/.offlineimap
+accounts = gmail,clickscape
+maxsyncaccounts = 2
+
+# You can specify one or more user interface modules for OfflineIMAP
+# to use.  OfflineIMAP will try the first in the list, and if it
+# fails, the second, and so forth.
+#
+# The pre-defined options are:
+# Blinkenlights -- A fancy (terminal) interface
+# TTYUI         -- a text-based (terminal) interface
+# Basic         -- Noninteractive interface suitable for cron'ing
+# Quiet         -- Noninteractive interface, generates no output
+#                  except for errors.
+# MachineUI     -- Interactive interface suitable for machine
+#                  parsing.
+#
+# You can override this with a command-line option -u.
+
+ui = Quiet
+
+########## Advanced settings
+
+# You can give a Python source filename here and all config file
+# python snippets will be evaluated in the context of that file.
+# This allows you to e.g. define helper functions in the Python
+# source file and call them from this config file.  You can find
+# an example of this in the manual.
+#
+pythonfile = ~/.offlineimap.py
+#
+
+# By default, OfflineIMAP will not exit due to a network error until
+# the operating system returns an error code.  Operating systems can sometimes
+# take forever to notice this.  Here you can activate a timeout on the
+# socket.  This timeout applies to individual socket reads and writes,
+# not to an overall sync operation.  You could perfectly well have a 30s
+# timeout here and your sync still take minutes.
+#
+# Values in the 30-120 second range are reasonable.
+#
+# The default is to have no timeout beyond the OS.  Times are given in seconds.
+#
+socktimeout = 60
+
+# By default, OfflineIMAP will use fsync() to force data out to disk at
+# opportune times to ensure consistency.  This can, however, reduce
+# performance.  Users where /home is on SSD (Flash) may also wish to reduce
+# write cycles.  Therefore, you can disable OfflineIMAP's use of fsync().
+# Doing so will come at the expense of greater risk of message duplication
+# in the event of a system crash or power loss.  Default is fsync = true.
+# Set fsync = false ot disable fsync.
+#
+# fsync = true
+
+##################################################
+# Mailbox name recorder
+##################################################
+
+[mbnames]
+
+# offlineimap can record your mailbox names in a format you specify.
+# You can define the header, each mailbox item, the separator,
+# and the footer.  Here is an example for Mutt.
+# If enabled is yes, all six setting must be specified, even if they
+# are just the empty string "".
+#
+# The header, peritem, sep, and footer are all Python expressions passed
+# through eval, so you can (and must) use Python quoting.
+
+enabled = yes
+filename = ~/.mutt/muttrc.mailboxes
+header = "mailboxes "
+peritem = "+%(accountname)s/%(foldername)s"
+sep = " "
+footer = "\n"
+
+# You can also specify a folderfilter.  It will apply to the
+# *translated* folder name here, and it takes TWO arguments:
+# accountname and foldername.  In all other ways, it will
+# behave identically to the folderfilter for accounts.  Please see
+# that section for more information and examples.
+#
+# Note that this filter can be used only to further restrict mbnames
+# to a subset of folders that pass the account's folderfilter.
+
+
+##################################################
+# Accounts
+##################################################
+
+# This is an account definition clause.  You'll have one of these
+# for each account listed in general/accounts above.
+
+[Account gmail]
+localrepository = gmail-local
+remoterepository = gmail-remote
+status_backend = sqlite
+autorefresh = 5
+quick = 12
+
+[Repository gmail-local]
+type = Maildir
+localfolders = ~/Mail/gmail
+nametrans = lambda folder: local_to_remote(folder)
+
+[Repository gmail-remote]
+type = Gmail
+remoteusereval = keyring.get_password("offlineimap", "gmail-user")
+remotepasseval = keyring.get_password("offlineimap", "gmail-pass")
+ssl = yes
+sslcacertfile = ~/dotfiles/ca-certificates.crt
+nametrans = lambda folder: remote_to_local(folder)
+
+[Account clickscape]
+localrepository = clickscape-local
+remoterepository = clickscape-remote
+status_backend = sqlite
+autorefresh = 5
+quick = 12
+
+[Repository clickscape-local]
+type = Maildir
+localfolders = ~/Mail/clickscape
+nametrans = lambda folder: local_to_remote(folder)
+
+[Repository clickscape-remote]
+type = Gmail
+remoteusereval = keyring.get_password("offlineimap", "clickscape-user")
+remotepasseval = keyring.get_password("offlineimap", "clickscape-pass")
+ssl = yes
+sslcacertfile = ~/dotfiles/ca-certificates.crt
+nametrans = lambda folder: remote_to_local(folder)

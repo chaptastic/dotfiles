@@ -38,7 +38,7 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 
 # export PATH=$PATH:~/bin:~/.cabal/bin
-export PATH=$PATH:~/bin
+export PATH=$PATH:~/bin:~/Library/Haskell/bin
 # export GEM_HOME='/usr/local/Cellar/gems/1.8'
 # export VIM_APP_DIR=/Applications
 
@@ -65,4 +65,13 @@ alias photob="brightness -d 0 0.834"
 alias photobt="brightness -d 0 0.843748"
 alias fixopenwith='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user'
 
-eval `keychain --eval --inherit any --quiet`
+[ -f ~/.gpg-agent-env ] && source ~/.gpg-agent-env
+export GPG_AGENT_INFO
+keychain --inherit any --dir ~/.ssh/.keychain ~/.ssh/id_rsa 67FC733E
+[ -f ~/.ssh/.keychain/$HOST-sh ] && source ~/.ssh/.keychain/$HOST-sh
+[ -f ~/.ssh/.keychain/$HOST-sh-gpg ] && source ~/.ssh/.keychain/$HOST-sh-gpg
+
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+
+unsetopt correct_all
+setopt correct

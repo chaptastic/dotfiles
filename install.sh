@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for f in gitconfig gvimrc tmux.conf vimrc.bundles.local vimrc.local zshrc; do
+for f in gitconfig gvimrc tmux.conf vimrc.bundles.local vimrc.local zshrc offlineimaprc muttrc mutt offlineimap.py msmtprc; do
     ln -sf `pwd`/$f ~/.$f
 done
 
@@ -25,4 +25,3 @@ if [ ! -d ~/.oh-my-zsh ]; then
 fi
 
 ln -sf `pwd`/flazz-chap.zsh-theme ~/.oh-my-zsh/themes/flazz-chap.zsh-theme
-

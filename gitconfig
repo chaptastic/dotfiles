@@ -15,3 +15,9 @@
 	default = upstream
 [merge]
 	conflictstyle = diff3
+	tool = opendiff
+[diff]
+	tool = opendiff
+[github]
+	user = chaptastic
+	oauth-token = 9aeb0e0d764f65017f83d546c1acf0188b74ceac
